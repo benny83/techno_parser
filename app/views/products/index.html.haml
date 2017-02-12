@@ -1,1 +1,36 @@
-Yeah, bitch, I am working!
+%html{lang: 'en'}
+  %head
+    %title TechnoParser
+    %meta{charset: 'utf-8'}/
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
+    %link{href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel: 'stylesheet'}/
+    %script{src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'}
+    %script{src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'}
+  %body
+    %nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          %a.navbar-brand{href: root_path} TechnoParser
+        %ul.nav.navbar-nav
+          %li.active
+            %a{href: root_path} Главная
+          %li
+            %a{href: '#'} Настройки
+    .col-md-1
+      %ul.nav.nav-pills.nav-stacked
+        %li.active
+          %a{:href => root_path} Home
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Холодильники
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Электрические чайники
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Кофеварки
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Пылесосы
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Телевизоры
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Видеокамеры
+        %li{ onclick: '$(this).addClass("active");'}
+          %a{:href => "#"} Фотоаппараты
