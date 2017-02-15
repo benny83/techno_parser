@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
-  # scope :by_values, ->(val) {
-  #   where('group_type = ? AND maker = ? AND model = ? AND site = ?', val[0], val[1], val[2], val[3])
-  # }
+  scope :by_type, ->(type) { where(group_type: type) }
+  scope :by_maker, ->(maker) { where(maker: maker) }
+  scope :by_model, ->(model) { where(model: model) }
 
   class << self
     def update_records_in_db(list)
@@ -16,6 +16,10 @@ class Product < ApplicationRecord
       search ? where('model LIKE ? OR maker LIKE ?', "%#{search}%", "%#{search}%") : all
     end
 
+    def get_sort_column(sort)
+      column_names.include?(sort) ? sort : "maker"
+    end
+
     private
 
     def update_or_create(item)
@@ -25,7 +29,7 @@ class Product < ApplicationRecord
                               site: item[:site]).first_or_initialize
       
       product.status = item[:status]
-      product.price = purify_price(item[:price])
+      product.price = purify_price(item[:price]) || 0.01
       product.save
     end
 
