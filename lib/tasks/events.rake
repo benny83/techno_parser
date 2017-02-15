@@ -4,25 +4,21 @@ namespace :events do
     puts "#{Time.now} - Success!"
   end
 
-  desc 'parse products from sources and put them in db'
-  task parse_products_from_sources: [:environment,
-                                     :parse_refrigerators,
-                                     :parse_kettles,
-                                     :parse_coffeemakers,
-                                     :parse_vacuum_cleaners,
-                                     :parse_tvs,
-                                     :parse_videocameras,
-                                     :parse_cameras]
+  # it uses GenericParser class to parse products from
+  # sources and updating(or creating) in database
+  # e.g. GenericParser.new('elmarket', 'tv')
 
-  desc 'parse refrigerators from sources and put them in db'
-  task parse_refrigerators: :environment do
-    list = []
-    %w(TECHNO).each do |source|
-      # %w(VEK ELMARKET IMARKET TECHNO).each do |source|
-      refs = GenericParser.new
-      list << refs.refrigerator_list(source)
+  desc 'parse products from sources and put them in db'
+  task parse_products_from_sources: :environment do
+    all_products = []
+    %w(vacuum tv video camera).each do |product_type|
+      %w(vek elmarket imarket).each do |source|
+        time = Time.now
+        list = GenericParser.new(source, product_type) 
+        all_products << list.get_products
+        p "#{Time.now - time}s #{source}: #{product_type}s DONE!"
+      end
     end
-    # list.flatten
-    binding.pry
+    Product.update_records_in_db(all_products.flatten)
   end
 end
