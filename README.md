@@ -56,9 +56,3 @@
 # "0.212862492s elmarket: cameras DONE!"
 # "12.454767619s imarket: cameras DONE!"
 # "84.693168679s techno: cameras DONE!"
-#
-# Some info for developer:
-#
-# косяк на imarket: https://imarket.by/catalog/kholodilniki/morozilnik-saratov-104-mksh-300.html
-# Бирюса, Витязь, одинаковые товары, разные цвета в наименовании
-# косяк 15.02 Net::HTTPBadGateway for http://techno.by/api/catalog/filter?parents=627&pages=70/
