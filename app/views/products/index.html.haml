@@ -10,27 +10,38 @@
     %nav.navbar.navbar-inverse
       .container-fluid
         .navbar-header
-          %a.navbar-brand{href: root_path} TechnoParser
-        %ul.nav.navbar-nav
-          %li.active
-            %a{href: root_path} Главная
-          %li
-            %a{href: '#'} Настройки
+          %a.navbar-brand{href: 'http://www.kotiki.tv/', target: '_blank'} TechnoParser
     .col-md-1
       %ul.nav.nav-pills.nav-stacked
         %li.active
-          %a{:href => root_path} Home
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Холодильники
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Электрические чайники
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Кофеварки
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Пылесосы
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Телевизоры
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Видеокамеры
-        %li{ onclick: '$(this).addClass("active");'}
-          %a{:href => "#"} Фотоаппараты
+          %a{href: root_path} Home
+        %li= link_to 'Холодильники', controller: 'products', group_type: 'refrigerator'
+        %li= link_to 'Электрические чайники', controller: 'products', group_type: 'teapot'
+        %li= link_to 'Кофеварки', controller: 'products', group_type: 'coffee'
+        %li= link_to 'Пылесосы', controller: 'products', group_type: 'vacuum'
+        %li= link_to 'Телевизоры', controller: 'products', group_type: 'tv'
+        %li= link_to 'Видеокамеры', controller: 'products', group_type: 'video'
+        %li= link_to 'Фотоаппараты', controller: 'products', group_type: 'camera'
+
+    / # - unless @products.blank?
+    .col-md-11
+      = form_tag root_path, method: 'get' do
+        %p
+          = text_field_tag :search, params[:search]
+          = submit_tag "Search", name: nil
+      %table.table.table-striped
+        %tr
+          %th= sortable 'maker'
+          %th= sortable 'model'
+          %th= sortable 'price'
+          %th= sortable 'site'
+          %th= sortable 'status'
+        - @products.each do |product|
+          %tr
+            %td= product.maker
+            %td= product.model
+            %td= product.price.to_f
+            %td= product.site
+            %td= show_status(product)
+
+      = will_paginate @products

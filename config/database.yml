@@ -1,13 +1,9 @@
 default: &default
   adapter: mysql2
   host: localhost
-  username: <%= ENV['database_username'] %>
-  password: <%= ENV['database_password'] %>
+  username: root
+  password: caritas2773
 
 development:
-  <<: *default
-  database: parser_products
-
-production:
   <<: *default
   database: parser_products

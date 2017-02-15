@@ -24,3 +24,8 @@
 # 
 # Использовать rails 5, mysql…
 # Не использовать любые готовые парсеры.
+#
+#
+#
+# косяк на imarket: https://imarket.by/catalog/kholodilniki/morozilnik-saratov-104-mksh-300.html
+# Бирюса, Витязь, цвета разные
