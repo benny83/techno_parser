@@ -2,14 +2,16 @@ class GenericParser
   def initialize(source, type)
     @type = type
     @source = source
+    @all_items = []
     @mechanize = Mechanize.new()  
     @values = build_hash_of_attributes
   end
 
   def get_products
-    (1..last_page).each_with_object([]) { |p, list| parse_items(p, list)}.uniq
-  rescue StandardError => e
-    p "GenericParserERROR: #{e.class}: #{e.message}"
+    (1..last_page).each_with_object(@all_items) { |p, list| parse_items(p, list)}.uniq
+  rescue Exception => e
+    p "GenericParserError: #{e.class}: #{e.message}"
+    @all_items
   end
 
   private
@@ -68,7 +70,7 @@ class GenericParser
     when 'elmarket'
       item.at('.estvnalichii')
     else
-      'unknown'
+      'неизвестно'
     end
   end
 

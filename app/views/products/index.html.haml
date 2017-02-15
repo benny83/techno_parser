@@ -23,25 +23,21 @@
         %li= link_to 'Видеокамеры', controller: 'products', group_type: 'video'
         %li= link_to 'Фотоаппараты', controller: 'products', group_type: 'camera'
 
-    / # - unless @products.blank?
-    .col-md-11
-      = form_tag root_path, method: 'get' do
-        %p
-          = text_field_tag :search, params[:search]
-          = submit_tag "Search", name: nil
-      %table.table.table-striped
-        %tr
-          %th= sortable 'maker'
-          %th= sortable 'model'
-          %th= sortable 'price'
-          %th= sortable 'site'
-          %th= sortable 'status'
-        - @products.each do |product|
+    - unless @products.blank?
+      .col-md-11
+        = form_tag root_path, method: 'get' do
+          %p.col-xs-2
+            = text_field_tag :search, params[:search], placeholder: 'Search', class: 'form-control'
+          = submit_tag "Search", name: nil, class: 'btn btn-success'
+        %table.table.table-striped
           %tr
-            %td= product.maker
-            %td= product.model
-            %td= product.price.to_f
-            %td= product.site
-            %td= show_status(product)
+            %th= sortable 'maker'
+            %th= sortable 'model'
+            %th= sortable 'price'
+            %th= sortable 'site'
+            %th= sortable 'status'
+          - @products.each do |product|
+            - duplicate_products = find_same_products(product)
+            = render "products/#{get_partial_name(duplicate_products)}", product: product, sorted: duplicate_products
 
-      = will_paginate @products
+        = will_paginate @products

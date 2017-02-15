@@ -1,0 +1,7 @@
+- sorted_products(sorted).each_with_index do |product, index|
+  %tr{class: table_class(index)}
+    %td= product.maker if index == 0
+    %td= product.model if index == 0
+    %td= product.price.to_f
+    %td= product.site
+    %td= show_status(product)
